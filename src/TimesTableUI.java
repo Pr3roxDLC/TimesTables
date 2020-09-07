@@ -21,7 +21,7 @@ public class TimesTableUI extends JFrame implements Runnable {
 	public int numberOfPoints = 0;
 	public Point[] points = new Point[0];
 	public TextPoint[] points2 = new TextPoint[0];
-	public int mul = 2;
+	public float mul = 2;
 
 	/**
 	 * Launch the application.
@@ -103,7 +103,7 @@ public class TimesTableUI extends JFrame implements Runnable {
 
 	public void update() {
 
-		points = new Point[50];
+		points = new Point[200];
 		points2 = new TextPoint[points.length];
 
 		for(int i = 0; i < points.length; i++) {
@@ -127,35 +127,7 @@ public class TimesTableUI extends JFrame implements Runnable {
 
 	public void paint(Graphics g) {
 
-		for(int i = 0; i < points.length; i++) {
-
-			System.out.println(i);
-
-			dbg.fillOval(
-
-					points[i].getX() + this.getWidth()/2 - 5,
-					points[i].getY() + this.getHeight()/2 - 5,
-					10,
-					10
-					);
-
-			dbg.drawString(
-					points2[i].getText(),					
-					points2[i].getX() + this.getWidth()/2 - 5,
-					points2[i].getY() + this.getHeight()/2 - 5
-					);
-
-		}
-		
-		for(int i = 0; i < points.length; i++) {
-			
-		//	int lastDigit = Character.getNumericValue()
-			
-		//	System.out.println("2 * " + i + " = " + i*2 + " therefor the last digit is " + lastDigit);
-			
-			 
-			
-		}
+	
 
 
 
@@ -169,6 +141,48 @@ public class TimesTableUI extends JFrame implements Runnable {
 
 		g.drawImage(dbImage, 8, 32, null);
 
+
+		for(int i = 0; i < points.length; i++) {
+
+			System.out.println(i);
+
+			dbg.fillOval(
+
+					points[i].getX() + this.getWidth()/2 - 5,
+					points[i].getY() + this.getHeight()/2 - 5,
+					5,
+					5
+					);
+
+			dbg.drawString(
+					points2[i].getText(),					
+					points2[i].getX() + this.getWidth()/2 - 5,
+					points2[i].getY() + this.getHeight()/2 - 5
+					);
+
+		}
+
+		for(int i = 0; i < points.length; i++) {
+			int j = (int) (i * mul);
+			int connectTo = j;
+			System.out.println("I is now: " + i);
+			
+			
+			while(j * mul >= points.length) {
+				System.out.println("Subtracing " + points.length + " from " + (int)(j*mul));
+				j =- points.length; 
+				connectTo = j;
+			}
+			
+			connectTo = j;
+
+				
+				System.out.println("Drawn a Line from " + i + " to " + connectTo);
+				dbg.drawLine(points[i].getX() + this.getWidth()/2 - 5, points[i].getY() + this.getHeight()/2 - 5, points[connectTo].getX() + this.getWidth()/2 - 5, points[connectTo].getY() + this.getHeight()/2 - 5);
+
+
+
+		}
 
 	}
 	public JSlider getSlider() {
